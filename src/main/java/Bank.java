@@ -9,8 +9,10 @@
  */
 public class Bank {
 
-    public String bankName;
+    /** Name of the bank the account is made under.*/
+    private String bankName;
 
+    /** Default constructor.*/
     public Bank() {
         bankName = "Illini Bank";
     }
@@ -29,6 +31,13 @@ public class Bank {
         /*
          * Implement this function
          */
+        if (amount > bankAccount.getAccountBalance()) {
+            return false;
+        } else {
+            bankAccount.withdraw(amount);
+            System.out.println("New balance: " + bankAccount.getAccountBalance());
+            return true;
+        }
     }
 
     /**
@@ -45,6 +54,10 @@ public class Bank {
         /*
          * Implement this function
          */
+        bankAccount.deposit(amount);
+        System.out.println("New balance: " + bankAccount.getAccountBalance());
+        return true;
+
     }
 
     /**
@@ -64,6 +77,14 @@ public class Bank {
         /*
          * Implement this function
          */
+        if (source.getAccountBalance() >= amount) {
+            destination.deposit(amount);
+            source.withdraw(amount);
+            System.out.println("Source new balance: " + source.getAccountBalance());
+            System.out.println("Destination new balance: " + destination.getAccountBalance());
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -77,9 +98,12 @@ public class Bank {
         /*
          * Implement this function
          */
+        bankAccount.setOwnerName(name);
     }
 
-    public static int totalAccounts = 0;
+    /** Number of accounts created. */
+    private static int totalAccounts = 0;
+
     /**
      * Uses static variable to get number of bank accounts opened.
      *
@@ -89,6 +113,8 @@ public class Bank {
         /*
          * Implement this function
          */
+        totalAccounts = BankAccount.numAccounts;
+        return totalAccounts;
     }
 
     /**
@@ -121,6 +147,6 @@ public class Bank {
 
         // Print number of accounts
         System.out.print("Number of active accounts at " + bank.bankName + " are ");
-        System.out.println(Bank.totalAccounts);
+        System.out.println(Bank.getNumberOfAccount());
     }
 }
